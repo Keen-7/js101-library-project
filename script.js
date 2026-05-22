@@ -89,3 +89,28 @@ function editBook() {
     alert("لم يتم العثور على كتاب بهذا الرقم لتعديله.");
 }
 
+// دالة للبحث عن كتاب (برقم الكتاب، عنوانه، أو اسم المؤلف)
+function searchBook() {
+    let query = document.getElementById('searchQuery').value.toLowerCase();
+    let searchResults = []; // مصفوفة لتخزين نتائج البحث
+
+    for (let i = 0; i < books.length; i++) {
+        // تحويل البيانات إلى نصوص لتسهيل البحث والمقارنة
+        let currentId = books[i][0].toString();
+        let currentTitle = books[i][1].toLowerCase();
+        let currentAuthor = books[i][2].toLowerCase();
+
+        // الجمل الشرطية للتحقق من التطابق
+        if (currentId == query || currentTitle.includes(query) || currentAuthor.includes(query)) {
+            searchResults.push(books[i]);
+        }
+    }
+
+    if (searchResults.length > 0) {
+        displayBooks(searchResults); // عرض نتائج البحث فقط
+    } else {
+        alert("لم يتم العثور على أية نتائج.");
+        displayBooks(books); // إعادة عرض كل الكتب
+    }
+}
+
