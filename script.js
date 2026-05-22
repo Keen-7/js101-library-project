@@ -114,3 +114,56 @@ function searchBook() {
     }
 }
 
+// دالة لبيع كتاب وإصدار فاتورة
+function sellBook() {
+    let title = document.getElementById('sellTitle').value;
+    let reqQuantity = parseInt(document.getElementById('sellQuantity').value);
+    let balance = parseFloat(document.getElementById('sellBalance').value);
+
+    let isBookFound = false;
+
+    // البحث عن الكتاب المطلوب في المصفوفة
+    for (let i = 0; i < books.length; i++) {
+        if (books[i][1].toLowerCase() == title.toLowerCase()) {
+            isBookFound = true;
+            let availableStock = books[i][4];
+            let bookPrice = books[i][3];
+            let totalPrice = bookPrice * reqQuantity;
+
+            // التحقق الأول: هل الكمية المطلوبة متوفرة؟
+            if (reqQuantity <= availableStock) {
+                
+                // التحقق الثاني: هل رصيد العميل يكفي؟
+                if (balance >= totalPrice) {
+                    
+                    // إتمام البيع: إنقاص المخزون
+                    books[i][4] = availableStock - reqQuantity;
+                    
+                    // إصدار الفاتورة (طباعة تنبيه)
+                    let invoice = "--- الفاتورة ---\n";
+                    invoice += "اسم الكتاب: " + books[i][1] + "\n";
+                    invoice += "الكمية: " + reqQuantity + "\n";
+                    invoice += "الإجمالي: " + totalPrice + " ريال\n";
+                    invoice += "الرصيد المتبقي: " + (balance - totalPrice) + " ريال\n";
+                    invoice += "------------------\n";
+                    invoice += "تمت عملية البيع بنجاح وتحديث المخزون.";
+                    
+                    alert(invoice);
+                    displayBooks(books); // تحديث الجدول لإظهار الكمية الجديدة
+                    
+                } else {
+                    alert("عذراً، رصيدك غير كافٍ. إجمالي الفاتورة: " + totalPrice);
+                }
+            } else {
+                alert("عذراً، الكمية المطلوبة غير متوفرة في المخزن. المتوفر حالياً: " + availableStock);
+            }
+            
+            break; // إيقاف الحلقة لأننا وجدنا الكتاب
+        }
+    }
+
+    if (isBookFound == false) {
+        alert("عذراً، الكتاب غير موجود في النظام.");
+    }
+}
+
