@@ -29,3 +29,63 @@ function displayBooks(booksArray) {
 // عرض الكتب عند فتح الصفحة لأول مرة
 displayBooks(books);
 
+// دالة لإضافة كتاب جديد
+function addBook() {
+    let id = document.getElementById('bookId').value;
+    let title = document.getElementById('bookTitle').value;
+    let author = document.getElementById('bookAuthor').value;
+    let price = document.getElementById('bookPrice').value;
+    let quantity = document.getElementById('bookQuantity').value;
+
+    // التأكد من أن المستخدم أدخل جميع البيانات
+    if(id == '' || title == '' || author == '' || price == '' || quantity == '') {
+        alert("الرجاء إدخال جميع معلومات الكتاب!");
+        return;
+    }
+
+    // إضافة الكتاب كمصفوفة داخل المصفوفة الرئيسية
+    books.push([parseInt(id), title, author, parseFloat(price), parseInt(quantity)]);
+    alert("تم إضافة الكتاب بنجاح!");
+    displayBooks(books); // تحديث الجدول
+}
+
+// دالة لحذف كتاب باستخدام رقم الـ ID
+function deleteBook() {
+    let id = document.getElementById('deleteId').value;
+    
+    for (let i = 0; i < books.length; i++) {
+        if (books[i][0] == id) {
+            books.splice(i, 1); // حذف عنصر واحد من الموقع i
+            alert("تم حذف الكتاب!");
+            displayBooks(books);
+            return;
+        }
+    }
+    alert("لم يتم العثور على كتاب بهذا الرقم.");
+}
+
+// دالة لتعديل معلومات كتاب موجود (بناءً على الـ ID)
+function editBook() {
+    let id = document.getElementById('bookId').value;
+    
+    for (let i = 0; i < books.length; i++) {
+        if (books[i][0] == id) {
+            // تحديث القيم إذا قام المستخدم بكتابة شيء جديد
+            let title = document.getElementById('bookTitle').value;
+            let author = document.getElementById('bookAuthor').value;
+            let price = document.getElementById('bookPrice').value;
+            let quantity = document.getElementById('bookQuantity').value;
+
+            if(title != '') books[i][1] = title;
+            if(author != '') books[i][2] = author;
+            if(price != '') books[i][3] = parseFloat(price);
+            if(quantity != '') books[i][4] = parseInt(quantity);
+
+            alert("تم تعديل الكتاب بنجاح!");
+            displayBooks(books);
+            return;
+        }
+    }
+    alert("لم يتم العثور على كتاب بهذا الرقم لتعديله.");
+}
+
