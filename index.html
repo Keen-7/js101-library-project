@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>نظام إدارة المكتبة</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>📚 نظام إدارة المكتبة</h1>
+
+    <div class="container">
+        <!-- قسم إضافة/تعديل كتاب -->
+        <div class="card">
+            <h3>إدارة الكتب (إضافة / تعديل)</h3>
+            <input type="number" id="bookId" placeholder="رقم الكتاب (ID)">
+            <input type="text" id="bookTitle" placeholder="عنوان الكتاب">
+            <input type="text" id="bookAuthor" placeholder="اسم المؤلف">
+            <input type="number" id="bookPrice" placeholder="السعر">
+            <input type="number" id="bookQuantity" placeholder="الكمية">
+            <button onclick="addBook()">إضافة كتاب جديد</button>
+            <button onclick="editBook()">تعديل كتاب (حسب ID)</button>
+        </div>
+
+        <!-- قسم البحث والحذف -->
+        <div class="card">
+            <h3>البحث والحذف</h3>
+            <input type="text" id="searchQuery" placeholder="ابحث بالرقم، العنوان أو المؤلف">
+            <button onclick="searchBook()">بحث</button>
+            <hr>
+            <input type="number" id="deleteId" placeholder="رقم الكتاب للحذف">
+            <button onclick="deleteBook()">حذف الكتاب</button>
+        </div>
+
+        <!-- قسم البيع وإصدار الفاتورة -->
+        <div class="card">
+            <h3>🛒 بيع كتاب (إصدار فاتورة)</h3>
+            <input type="text" id="sellTitle" placeholder="اسم الكتاب المراد شراؤه">
+            <input type="number" id="sellQuantity" placeholder="الكمية المطلوبة">
+            <input type="number" id="sellBalance" placeholder="رصيد العميل المتوفر">
+            <button onclick="sellBook()">إتمام البيع</button>
+        </div>
+    </div>
+
+    <!-- جدول عرض الكتب -->
+    <div class="table-container">
+        <h3>قائمة الكتب المتوفرة</h3>
+        <table border="1" id="booksTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>عنوان الكتاب</th>
+                    <th>المؤلف</th>
+                    <th>السعر</th>
+                    <th>الكمية</th>
+                </tr>
+            </thead>
+            <tbody id="booksBody">
+                <!-- سيتم تعبئة الكتب هنا بواسطة الجافاسكريبت -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
